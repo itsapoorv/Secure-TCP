@@ -1,0 +1,29 @@
+Network Security Lab 2 
+Apoorv Krishak
+------------------------------------------------------------------------
+The only files need for RIP protocol is RIP.py, lab2stack, and 
+    lab2module.conf
+CertFactory created, but only works locally, as specified on Piazza
+    RIP also depends on CertFactory.getRootCert, specified in follow-up 
+    discussion
+
+
+It follows the updated RIP protocol specified on piazza and in the PRFC.
+- The window size is 1, and not adjustable
+- In data transmission if authentication fails, drop the packet
+- If an unexpected SNN is received the connection is terminated
+- Connection timeout is 2 minutes with no new messages sent and no
+    authentic messages received.
+- Reset flag is never sent and ignored it received
+- If the server receives an authentic, unexpected SNN it will shutdown
+    and moves to the "QUESTIONING" state
+- The maximum number of messages that can be sent without receiving an 
+    acknowledgement is 256, any new messages received from the higher
+    layer are stored (in order) for later transmission
+- Likewise the maximum number of messages that can be received out of
+    order is 256, after that any out of order messages will be dropped
+- Maximum segment size is 4096
+- Acknowledgement messages do not increase the sequence number
+- Messages are retransmitted after 4 seconds
+- Each message has its own retransmission timer.
+- All handshake messages increase the sequence number by 1
